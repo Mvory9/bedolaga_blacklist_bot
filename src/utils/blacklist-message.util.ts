@@ -2,8 +2,13 @@ import { User } from "grammy/types";
 import { BLACKLIST_REPO_URL } from "../services/blacklist.service";
 import { escapeHtml } from "./escape-html.util";
 
-export function blacklistRepoFooterHtml() {
-    return `\n\n📎 <a href="${BLACKLIST_REPO_URL}">Репозиторий blacklist</a>`;
+export const BOT_REPO_URL = "https://github.com/Mvory9/bedolaga_blacklist_bot";
+
+export function inlineMessageFooterHtml() {
+    return (
+        `\n\n📎 <a href="${BLACKLIST_REPO_URL}">Репозиторий blacklist</a>` +
+        `\n🤖 <a href="${BOT_REPO_URL}">Репозиторий бота</a>`
+    );
 }
 
 export function formatIdCheckHtml(id: string, inList: boolean, errorText: string | null) {
@@ -11,7 +16,7 @@ export function formatIdCheckHtml(id: string, inList: boolean, errorText: string
         return (
             `⚠️ Не удалось проверить ID: ${escapeHtml(id)}\n\n` +
             `Причина: ${escapeHtml(errorText)}` +
-            blacklistRepoFooterHtml()
+            inlineMessageFooterHtml()
         );
     }
 
@@ -19,7 +24,7 @@ export function formatIdCheckHtml(id: string, inList: boolean, errorText: string
         ? `🚫 <b>ID:</b> <code>${escapeHtml(id)}</code>\n<b>Статус:</b> <b>В BLACKLIST</b>`
         : `✅ <b>ID:</b> <code>${escapeHtml(id)}</code>\n<b>Статус:</b> <b>Не найден в blacklist</b>`;
 
-    return status + blacklistRepoFooterHtml();
+    return status + inlineMessageFooterHtml();
 }
 
 export function formatSelfCheckHtml(from: User, inList: boolean, errorText: string | null) {
@@ -38,7 +43,7 @@ export function formatSelfCheckHtml(from: User, inList: boolean, errorText: stri
     if (errorText) {
         return (
             `⚠️ ${header}${profile}\n\n<b>Ошибка:</b> ${escapeHtml(errorText)}` +
-            blacklistRepoFooterHtml()
+            inlineMessageFooterHtml()
         );
     }
 
@@ -47,7 +52,7 @@ export function formatSelfCheckHtml(from: User, inList: boolean, errorText: stri
         : `\n\n<b>Статус:</b> <b>Не найден в blacklist</b>`;
 
     const emoji = inList ? "🚫" : "✅";
-    return `${emoji} ${header}${profile}${status}` + blacklistRepoFooterHtml();
+    return `${emoji} ${header}${profile}${status}` + inlineMessageFooterHtml();
 }
 
 export const selfCheckButtonMarkup = {
