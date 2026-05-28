@@ -5,7 +5,7 @@ import { isInBlacklist } from "../../services/blacklist.service";
 import {
     formatSelfCheckHtml,
     noLinkPreview,
-    selfCheckButtonMarkup,
+    inlineResultReplyMarkup,
 } from "../../utils/blacklist-message.util";
 
 function isMessageNotModifiedError(e: unknown) {
@@ -47,13 +47,13 @@ export function inlineComposer(): Composer<Context> {
             if (ctx.callbackQuery?.inline_message_id) {
                 await ctx.api.editMessageTextInline(ctx.callbackQuery.inline_message_id, text, {
                     parse_mode: "HTML",
-                    reply_markup: selfCheckButtonMarkup,
+                    reply_markup: inlineResultReplyMarkup,
                     ...noLinkPreview,
                 });
             } else {
                 await ctx.editMessageText(text, {
                     parse_mode: "HTML",
-                    reply_markup: selfCheckButtonMarkup,
+                    reply_markup: inlineResultReplyMarkup,
                     ...noLinkPreview,
                 });
             }

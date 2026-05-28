@@ -1,7 +1,11 @@
 import { Context } from "grammy";
 import { InlineQueryResultArticle } from "grammy/types";
 import { isInBlacklist } from "../../services/blacklist.service";
-import { formatIdCheckHtml, noLinkPreview } from "../../utils/blacklist-message.util";
+import {
+    formatIdCheckHtml,
+    inlineResultReplyMarkup,
+    noLinkPreview,
+} from "../../utils/blacklist-message.util";
 
 export default async function checkInline(context: Context) {
     if (!context.from || !context.inlineQuery) return;
@@ -34,6 +38,7 @@ export default async function checkInline(context: Context) {
                 parse_mode: "HTML",
                 ...noLinkPreview,
             },
+            reply_markup: inlineResultReplyMarkup,
         },
     ];
 

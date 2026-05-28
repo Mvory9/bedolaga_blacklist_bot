@@ -4,7 +4,7 @@ import { isInBlacklist } from "../../services/blacklist.service";
 import {
     formatSelfCheckHtml,
     noLinkPreview,
-    selfCheckButtonMarkup,
+    inlineResultReplyMarkup,
 } from "../../utils/blacklist-message.util";
 
 export default async function selfInline(context: Context) {
@@ -36,7 +36,7 @@ export default async function selfInline(context: Context) {
                 parse_mode: "HTML",
                 ...noLinkPreview,
             },
-            reply_markup: selfCheckButtonMarkup,
+            reply_markup: inlineResultReplyMarkup,
         },
     ];
 

@@ -4,11 +4,10 @@ import { escapeHtml } from "./escape-html.util";
 
 export const BOT_REPO_URL = "https://github.com/Mvory9/bedolaga_blacklist_bot";
 
+export const ADD_TO_BLACKLIST_GUIDE_URL = "https://t.me/c/2941121338/98424/434891";
+
 export function inlineMessageFooterHtml() {
-    return (
-        `\n\n📎 <a href="${BLACKLIST_REPO_URL}">Репозиторий blacklist</a>` +
-        `\n🤖 <a href="${BOT_REPO_URL}">Репозиторий бота</a>`
-    );
+    return `\n\n<b>Как добавить нежелательного пользователя?</b>\nСм. кнопки ниже.`;
 }
 
 export function formatIdCheckHtml(id: string, inList: boolean, errorText: string | null) {
@@ -55,8 +54,15 @@ export function formatSelfCheckHtml(from: User, inList: boolean, errorText: stri
     return `${emoji} ${header}${profile}${status}` + inlineMessageFooterHtml();
 }
 
-export const selfCheckButtonMarkup = {
-    inline_keyboard: [[{ text: "👤 Проверить себя", callback_data: "self_check" }]],
+export const inlineResultReplyMarkup = {
+    inline_keyboard: [
+        [{ text: "👤 Проверить себя", callback_data: "self_check" }],
+        [{ text: "📝 Как добавить в blacklist", url: ADD_TO_BLACKLIST_GUIDE_URL }],
+        [
+            { text: "📎 Репозиторий blacklist", url: BLACKLIST_REPO_URL },
+            { text: "🤖 Репозиторий бота", url: BOT_REPO_URL },
+        ],
+    ],
 };
 
 export const noLinkPreview = {
