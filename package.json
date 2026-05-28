@@ -1,0 +1,28 @@
+{
+  "name": "bedolaga_blacklist_bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec npx tsx ./src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mvory9/bedolaga_blacklist_bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Mvory9/bedolaga_blacklist_bot/issues"
+  },
+  "homepage": "https://github.com/Mvory9/bedolaga_blacklist_bot#readme",
+  "dependencies": {
+    "@types/node": "^25.9.1",
+    "dotenv": "^17.4.2",
+    "grammy": "^1.43.0",
+    "nodemon": "^3.1.14",
+    "tsx": "^4.22.3"
+  }
+}
