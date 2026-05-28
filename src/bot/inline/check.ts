@@ -3,6 +3,7 @@ import { InlineQueryResultArticle } from "grammy/types";
 import { isInBlacklist } from "../../services/blacklist.service";
 import {
     formatIdCheckHtml,
+    inlineResultDescription,
     inlineResultReplyMarkup,
     noLinkPreview,
 } from "../../utils/blacklist-message.util";
@@ -28,11 +29,13 @@ export default async function checkInline(context: Context) {
             type: "article",
             id: "check_" + Date.now(),
             title: `🔎 Проверка ID: ${query}`,
-            description: errorText
-                ? `⚠️ Ошибка загрузки списка`
-                : isBlacklisted
-                  ? `🚫 В blacklist`
-                  : `✅ Не в blacklist`,
+            description: inlineResultDescription(
+                errorText
+                    ? "⚠️ Ошибка загрузки списка"
+                    : isBlacklisted
+                      ? "🚫 В blacklist"
+                      : "✅ Не в blacklist",
+            ),
             input_message_content: {
                 message_text: messageText,
                 parse_mode: "HTML",

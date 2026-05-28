@@ -6,8 +6,22 @@ export const BOT_REPO_URL = "https://github.com/Mvory9/bedolaga_blacklist_bot";
 
 export const ADD_TO_BLACKLIST_GUIDE_URL = "https://t.me/c/2941121338/98424/434891";
 
+export const BOT_ABOUT_SENTENCE =
+    "Это inline-бот для Telegram: он за секунду проверяет, есть ли пользователь в публичном blacklist ban-vpn, чтобы не искать список вручную.";
+
+export function inlineResultDescription(statusLine: string) {
+    return `${statusLine}\n${BOT_ABOUT_SENTENCE}`;
+}
+
 export function inlineMessageFooterHtml() {
-    return `\n\n<b>Как добавить нежелательного пользователя?</b>\nСм. кнопки ниже.`;
+    return (
+        `\n\n<b>Как добавить нежелательного пользователя?</b>\nСм. кнопки ниже.` +
+        `\n\n<i>${escapeHtml(BOT_ABOUT_SENTENCE)}</i>`
+    );
+}
+
+export function botAboutFooterHtml() {
+    return `\n\n<i>${escapeHtml(BOT_ABOUT_SENTENCE)}</i>`;
 }
 
 export function formatIdCheckHtml(id: string, inList: boolean, errorText: string | null) {
