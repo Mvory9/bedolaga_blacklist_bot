@@ -1,8 +1,7 @@
 import { Context } from "grammy";
 import { InlineQueryResultArticle } from "grammy/types";
-
-const BLACKLIST_URL =
-    "https://raw.githubusercontent.com/Blin4ickUSE/ban-vpn/refs/heads/main/blacklist.txt";
+import { isInBlacklist } from "../../services/blacklist.service";
+import { escapeHtml } from "../../utils/escape-html.util";
 
 export default async function checkInline(context: Context) {
     if (!context.from || !context.inlineQuery) return;
@@ -17,26 +16,7 @@ export default async function checkInline(context: Context) {
     let errorText: string | null = null;
 
     try {
-        const res = await fetch(BLACKLIST_URL, {
-            cache: "no-store",
-        });
-        if (!res.ok) {
-            throw new Error(`HTTP ${res.status}`);
-        }
-
-        const text = await res.text();
-        const set = new Set(
-            text
-                .split(/\r?\n/)
-                .map((line) => (line.split("#")[0] ?? "").trim())
-                .map((line) => {
-                    const m = line.match(/^\d+$/);
-                    return m ? m[0] : "";
-                })
-                .filter(Boolean)
-        );
-
-        isBlacklisted = set.has(query);
+        isBlacklisted = await isInBlacklist(query);
     } catch (e) {
         errorText = e instanceof Error ? e.message : "unknown error";
     }
@@ -55,9 +35,12 @@ export default async function checkInline(context: Context) {
                 message_text: errorText
                     ? `⚠️ Не удалось проверить ID: ${query}\n\nПричина: ${errorText}`
                     : isBlacklisted
-                      ? `🚫 ID: ${query}\nСтатус: *В BLACKLIST*`
-                      : `✅ ID: ${query}\nСтатус: *Не найден в blacklist*`,
-                ...(errorText ? {} : { parse_mode: "Markdown" as const }),
+                      ? `🚫 <b>ID:</b> <code>${escapeHtml(query)}</code>\n<b>Статус:</b> <b>В BLACKLIST</b>`
+                      : `✅ <b>ID:</b> <code>${escapeHtml(query)}</code>\n<b>Статус:</b> <b>Не найден в blacklist</b>`,
+                ...(errorText ? {} : { parse_mode: "HTML" as const }),
+            },
+            reply_markup: {
+                inline_keyboard: [[{ text: "👤 Проверить себя", callback_data: "self_check" }]],
             },
         },
     ];
