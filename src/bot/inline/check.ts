@@ -4,7 +4,6 @@ import { isInBlacklist } from "../../services/blacklist.service";
 import {
     formatIdCheckHtml,
     inlineResultDescription,
-    inlineResultReplyMarkup,
     noLinkPreview,
 } from "../../utils/blacklist-message.util";
 
@@ -41,7 +40,6 @@ export default async function checkInline(context: Context) {
                 parse_mode: "HTML",
                 ...noLinkPreview,
             },
-            reply_markup: inlineResultReplyMarkup,
         },
     ];
 
