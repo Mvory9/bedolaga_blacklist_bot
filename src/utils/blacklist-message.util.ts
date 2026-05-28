@@ -6,31 +6,16 @@ export const BOT_REPO_URL = "https://github.com/Mvory9/bedolaga_blacklist_bot";
 
 export const ADD_TO_BLACKLIST_GUIDE_URL = "https://t.me/c/2941121338/98424/434891";
 
-export const BOT_ABOUT_SENTENCE =
-    "Это inline-бот для Telegram: он за секунду проверяет, есть ли пользователь в публичном blacklist ban-vpn, чтобы не искать список вручную.";
-
 export function inlineResultDescription(statusLine: string) {
-    return `${statusLine}\n${BOT_ABOUT_SENTENCE}`;
+    return statusLine;
 }
 
 function inlineMessageLinksLineHtml() {
     return (
-        `<a href="${ADD_TO_BLACKLIST_GUIDE_URL}">📝 Как добавить в blacklist</a>` +
-        ` · <a href="${BLACKLIST_REPO_URL}">📎 Репозиторий blacklist</a>` +
-        ` · <a href="${BOT_REPO_URL}">🤖 Репозиторий бота</a>`
+        `\n\n<a href="${ADD_TO_BLACKLIST_GUIDE_URL}">📝 Как добавить в blacklist</a>` +
+        `\n<a href="${BLACKLIST_REPO_URL}">📎 Репозиторий blacklist</a>` +
+        `\n<a href="${BOT_REPO_URL}">🤖 Репозиторий бота</a>`
     );
-}
-
-export function inlineMessageFooterHtml() {
-    return (
-        `\n\n<b>Как добавить нежелательного пользователя?</b>` +
-        `\n\n<i>${escapeHtml(BOT_ABOUT_SENTENCE)}</i>` +
-        `\n${inlineMessageLinksLineHtml()}`
-    );
-}
-
-export function botAboutFooterHtml() {
-    return `\n\n<i>${escapeHtml(BOT_ABOUT_SENTENCE)}</i>`;
 }
 
 export function formatIdCheckHtml(id: string, inList: boolean, errorText: string | null) {
@@ -38,7 +23,7 @@ export function formatIdCheckHtml(id: string, inList: boolean, errorText: string
         return (
             `⚠️ Не удалось проверить ID: ${escapeHtml(id)}\n\n` +
             `Причина: ${escapeHtml(errorText)}` +
-            inlineMessageFooterHtml()
+            inlineMessageLinksLineHtml()
         );
     }
 
@@ -46,7 +31,7 @@ export function formatIdCheckHtml(id: string, inList: boolean, errorText: string
         ? `🚫 <b>ID:</b> <code>${escapeHtml(id)}</code>\n<b>Статус:</b> <b>В BLACKLIST</b>`
         : `✅ <b>ID:</b> <code>${escapeHtml(id)}</code>\n<b>Статус:</b> <b>Не найден в blacklist</b>`;
 
-    return status + inlineMessageFooterHtml();
+    return status + inlineMessageLinksLineHtml();
 }
 
 export function formatSelfCheckHtml(from: User, inList: boolean, errorText: string | null) {
@@ -65,7 +50,7 @@ export function formatSelfCheckHtml(from: User, inList: boolean, errorText: stri
     if (errorText) {
         return (
             `⚠️ ${header}${profile}\n\n<b>Ошибка:</b> ${escapeHtml(errorText)}` +
-            inlineMessageFooterHtml()
+            inlineMessageLinksLineHtml()
         );
     }
 
@@ -74,7 +59,7 @@ export function formatSelfCheckHtml(from: User, inList: boolean, errorText: stri
         : `\n\n<b>Статус:</b> <b>Не найден в blacklist</b>`;
 
     const emoji = inList ? "🚫" : "✅";
-    return `${emoji} ${header}${profile}${status}` + inlineMessageFooterHtml();
+    return `${emoji} ${header}${profile}${status}` + inlineMessageLinksLineHtml();
 }
 
 export const inlineResultReplyMarkup = {
