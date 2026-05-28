@@ -1,9 +1,11 @@
 {
   "name": "bedolaga_blacklist_bot",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.0.1",
+  "description": "Telegram inline-бот для проверки blacklist ban-vpn",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
     "dev": "nodemon --exec npx tsx ./src/index.ts"
   },
   "repository": {
@@ -24,5 +26,8 @@
     "grammy": "^1.43.0",
     "nodemon": "^3.1.14",
     "tsx": "^4.22.3"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
   }
 }

@@ -1,0 +1,7 @@
+services:
+  bot:
+    build: .
+    container_name: bedolaga_blacklist_bot
+    env_file:
+      - .env
+    restart: unless-stopped

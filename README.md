@@ -58,10 +58,26 @@ npm install
 TELEGRAM_BOT_TOKEN=ваш_токен_от_BotFather
 ```
 
-4. Запустите:
+4. Соберите и запустите:
+
+```bash
+npm run build
+npm start
+```
+
+Для разработки с автоперезагрузкой:
 
 ```bash
 npm run dev
+```
+
+### Docker
+
+```bash
+cp .env.example .env
+# укажите TELEGRAM_BOT_TOKEN в .env
+
+docker compose up -d --build
 ```
 
 ## Лицензия
