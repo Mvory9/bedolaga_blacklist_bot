@@ -13,10 +13,19 @@ export function inlineResultDescription(statusLine: string) {
     return `${statusLine}\n${BOT_ABOUT_SENTENCE}`;
 }
 
+function inlineMessageLinksLineHtml() {
+    return (
+        `<a href="${ADD_TO_BLACKLIST_GUIDE_URL}">📝 Как добавить в blacklist</a>` +
+        ` · <a href="${BLACKLIST_REPO_URL}">📎 Репозиторий blacklist</a>` +
+        ` · <a href="${BOT_REPO_URL}">🤖 Репозиторий бота</a>`
+    );
+}
+
 export function inlineMessageFooterHtml() {
     return (
-        `\n\n<b>Как добавить нежелательного пользователя?</b>\nСм. кнопки ниже.` +
-        `\n\n<i>${escapeHtml(BOT_ABOUT_SENTENCE)}</i>`
+        `\n\n<b>Как добавить нежелательного пользователя?</b>` +
+        `\n\n<i>${escapeHtml(BOT_ABOUT_SENTENCE)}</i>` +
+        `\n${inlineMessageLinksLineHtml()}`
     );
 }
 
@@ -69,14 +78,7 @@ export function formatSelfCheckHtml(from: User, inList: boolean, errorText: stri
 }
 
 export const inlineResultReplyMarkup = {
-    inline_keyboard: [
-        [{ text: "👤 Проверить себя", callback_data: "self_check" }],
-        [{ text: "📝 Как добавить в blacklist", url: ADD_TO_BLACKLIST_GUIDE_URL }],
-        [
-            { text: "📎 Репозиторий blacklist", url: BLACKLIST_REPO_URL },
-            { text: "🤖 Репозиторий бота", url: BOT_REPO_URL },
-        ],
-    ],
+    inline_keyboard: [[{ text: "👤 Проверить себя", callback_data: "self_check" }]],
 };
 
 export const noLinkPreview = {
